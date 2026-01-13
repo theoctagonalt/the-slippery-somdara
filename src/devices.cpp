@@ -16,7 +16,7 @@
 #define LIFT 1
 #define WING 2
 
-#define INERTIAL 7
+#define INERTIAL 15
 #define COLOUR_SENSOR 4
 #define ARM_SENSOR 16
 
@@ -57,8 +57,8 @@ lemlib::ExpoDriveCurve turn_curve(10, // joystick deadband out of 127
 );
 
 //rotational
-lemlib::ControllerSettings angular_controller(4, //kP
-                                              0, //kIx
+lemlib::ControllerSettings angular_controller(2.2, //kP
+                                              0.2, //kIx
                                               15, //kD
                                               7, //anti-windup
                                               0.1, //small error range (in)
@@ -68,9 +68,19 @@ lemlib::ControllerSettings angular_controller(4, //kP
                                               0  //maximum accel
                                               ); 
 
-//front-back
-lemlib::ControllerSettings lateral_controller(6.5,
-                                             0, 
+//front-back OLD
+// lemlib::ControllerSettings lateral_controller(6.5,
+//                                              0, 
+//                                              5.5, 
+//                                              5, 
+//                                              1, 
+//                                              100, 
+//                                              0, 
+//                                              500, 
+//                                              0 //TODO: TUNE SLEW
+//                                              );
+lemlib::ControllerSettings lateral_controller(6,
+                                             .5, 
                                              5.5, 
                                              5, 
                                              1, 

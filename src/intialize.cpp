@@ -3,7 +3,7 @@
 #include "devices.h"
 #include "initialize.h"
 
-int routine = LEFT_SIDE_QUALS;
+int routine = LEFT_SIDE;
 int colour = RED;
 
 void initialize(){
@@ -15,26 +15,45 @@ void on_auton_route_cycle(){
   // if last option
   if(routine == SKILLS){
     // go back to first option
-    routine = LEFT_SIDE_QUALS;
+    routine = LEFT_SIDE;
   }else{
     // cycle through options
     routine++;
   }
-  
+  std::string route_name;
+  if(routine == LEFT_SIDE){
+    route_name = "Left Side";
+  }else if(routine == RIGHT_SIDE){
+    route_name = "Right Side";
+  }else if(routine == SOLO_AWP){
+    route_name = "Solo AWP";
+  }else if(routine == SKILLS){
+    route_name = "Skills";
+  }
   // show updated option on lcd
-  pros::lcd::print(1, "Auton Route: %s", (routine == LEFT_SIDE_QUALS) ? "Left Side Quals" : (routine == RIGHT_SIDE_QUALS) ? "Right Side Quals" : (routine == LEFT_SIDE_ELIMS) ? "Left Side Elims" : (routine == RIGHT_SIDE_ELIMS) ? "Right Side Elims" : "SKILLS");
+  pros::lcd::print(1, "Auton Route: %s", route_name);
 }
 // colour sort
 void on_colour_cycle(){
   colour = !colour;
-  pros::lcd::print(2, "Colour: %s", (colour == RED) ? "Red" : "Blue");
+  pros::lcd::print(2, "Colour: %s", colour == RED ? "Red" : "Blue");
 }
 
 void competition_initialize(){
   pros::lcd::register_btn0_cb(on_auton_route_cycle);
   pros::lcd::register_btn1_cb(on_colour_cycle);
   // show options/selectors on lcd display
-  pros::lcd::print(1, "Auton Route: %s", (routine == LEFT_SIDE_QUALS) ? "Left Side Quals" : (routine == RIGHT_SIDE_QUALS) ? "Right Side Quals" : (routine == LEFT_SIDE_ELIMS) ? "Left Side Elims" : "Right Side Elims");
+  std::string route_name;
+  if(routine == LEFT_SIDE){
+    route_name = "Left Side";
+  }else if(routine == RIGHT_SIDE){
+    route_name = "Right Side";
+  }else if(routine == SOLO_AWP){
+    route_name = "Solo AWP";
+  }else if(routine == SKILLS){
+    route_name = "Skills";
+  }
+  pros::lcd::print(1, "Auton Route: %s", route_name);
   pros::lcd::print(0, "Autonomous Selector");  
   pros::lcd::print(2, "Colour: %s", (colour == RED) ? "Red" : "Blue");
 }

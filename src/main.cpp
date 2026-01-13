@@ -12,6 +12,7 @@
 //TODO: Make drivetrain stop @rpm drop
 
 void opcontrol(){
+  bool check = false; //jams
   int game_time = 0;
   bool intake_off_next = false;
   while(true){
@@ -23,7 +24,7 @@ void opcontrol(){
     
     if (master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)){
       Intake::toggle();
-      Arm::set_state(ARM_0, 50);
+      Arm::set_state(0);
     } else if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)){ //if we detect a new press of R2
       if(Intake::get_intake() == REV){ //if the intake is already outtaking
         Intake::set_intake(OFF); //turn the intake off
@@ -32,13 +33,19 @@ void opcontrol(){
       }
     }
 
+    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)){
+      Arm::score(50);
+      if (Intake::get_intake() == OFF  || Intake::get_intake() == REV){
+        Intake::set_intake(FWD);  
+        intake_off_next = true;
+      }
+    }
+
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-      if(!Arm::pid_on()){
-        Arm::score();
-        if (Intake::get_intake() == OFF  || Intake::get_intake() == REV){
-          Intake::set_intake(FWD);
-          intake_off_next = true;
-        }
+      Arm::score();
+      if (Intake::get_intake() == OFF  || Intake::get_intake() == REV){
+        Intake::set_intake(FWD);
+        intake_off_next = true;
       }
     }
     if(intake_off_next && !Arm::pid_on()){
@@ -51,17 +58,24 @@ void opcontrol(){
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
       Wing::toggle();
     }
-    // jams added here
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){ // if L2 is held
-      if(abs(left_motors.get_actual_velocity()) < 50){
-        master.rumble("..."); // short rumble to indicate stop command received
-        left_motors.move_velocity(0);
-      }
-      if(abs(right_motors.get_actual_velocity()) < 50){
-        master.rumble("..."); // short rumble to indicate stop command received
-        right_motors.move_velocity(0);
-      }
+    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){
+      Matchloader::toggle();
     }
+    // jams added here
+    // if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){ // if up is pressed
+    //   check = !check;
+    // }
+
+    // if (check){
+    //   if(abs(left_motors.get_actual_velocity()) < 25){
+    //     master.rumble("..."); // short rumble to indicate stop command received
+    //     left_motors.move_velocity(0);
+    //   }
+    //   if(abs(right_motors.get_actual_velocity()) < 25){
+    //     master.rumble("..."); // short rumble to indicate stop command received
+    //     right_motors.move_velocity(0);
+    //   }
+    // }
     // end of jams
     //game
     if(pros::competition::is_connected() && !pros::competition::is_autonomous()){

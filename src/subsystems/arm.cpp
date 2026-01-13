@@ -13,22 +13,16 @@ namespace Arm{
 
   bool pid_enabled = false;
   int max_velocity = 200;
-  int error_timeout = 0;
 
   void score(int vel){
     set_state(6, vel);
-    target_next_state = 0;
   }
-  int counter = 0;
+
   void set_state(int state, int vel){
     target_state = state;
-    max_velocity = vel;
     target_pos = arm_state_values[state];
-    pros::lcd::clear_line(1);
-    pros::lcd::print(1, "target: %i, pos: %i", target_state, target_pos);
+    max_velocity = vel;
     pid_enabled = true;
-    pros::lcd::print(5, "hi, %i", counter);
-    counter++;
   }
   int get_state(){
     return target_state;
@@ -47,28 +41,20 @@ namespace Arm{
       double current_pos = arm_sensor.get_angle() / 100.0; // convert to degrees
       double error = target_pos - current_pos; // calculate error - how far from target we are
 
+      double vel = error * arm_controller.kP; // P term
 
-      pros::lcd::clear_line(2);
-      pros::lcd::print(2, "%f, %f, %i", current_pos, error, counter); // print info to lcd
-      error_timeout = 0; // timeout for error
-      double p = error; 
+      if(vel > max_velocity) vel = max_velocity;
+      if(vel < -max_velocity) vel = -max_velocity;
 
-      double vel = arm_controller.kP * p; // sets final motor velocity
-
-      if(vel > max_velocity) vel = max_velocity; // cap velocity to max
-
-      arm_motor.move_velocity(vel); // run motor at calculated velocity
-
-      // pros::lcd::clear_line(0);
-      // pros::lcd::print(0, "%f, %f", current_pos, error); // print info to lcd
+      arm_motor.move_velocity(vel);
 
       if(fabs(error) < 5){
-        pid_enabled=false;
-        arm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-        arm_motor.brake();
-        if(target_next_state != -1){
-          set_state(target_next_state, 100);
-          target_next_state = -1;
+        if(target_state != 0){
+          set_state(0);
+        }else{
+          pid_enabled = false;
+          arm_motor.brake();
+          arm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
         }
       }
     }
