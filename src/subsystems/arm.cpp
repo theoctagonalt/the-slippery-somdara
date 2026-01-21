@@ -3,20 +3,30 @@
 #include "devices.h"
 #include "globals.h"
 #include "initialize.h"
+#include "./subsystems/intake.h"
+#include "./subsystems/hood.h"
 
 namespace Arm{
   int target_state = ARM_0;
   int target_next_state = ARM_0;
   int target_pos;
+  bool intake_rev_next = false;
+  bool intake_fwd_next = false;
 
   int arm_state_values[] = {ARM_0, ARM_1, ARM_2, ARM_3, ARM_4, ARM_5, ARM_6};
 
   bool pid_enabled = false;
   int max_velocity = 200;
+  bool scoring = false;
 
   void score(int vel){
     set_state(6, vel);
+    scoring = true;
+    Intake::set_intake(FWD);
+    intake_rev_next = true;
+    Hood::set(EXTENDED);
   }
+
 
   void set_state(int state, int vel){
     target_state = state;
@@ -53,10 +63,21 @@ namespace Arm{
           set_state(0);
         }else{
           pid_enabled = false;
+          scoring = false;
           arm_motor.brake();
           arm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+          Hood::set(RETRACTED);
         }
       }
+    }
+    if(scoring && intake_rev_next && arm_sensor.get_angle() < 12000){
+      intake_rev_next = false;
+      intake_fwd_next = true;
+      Intake::set_intake(REV);
+    }
+    if(scoring && intake_fwd_next && arm_sensor.get_angle() > 12000){
+      Intake::set_intake(FWD);
+      intake_fwd_next = false;
     }
   }
 }

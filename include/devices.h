@@ -16,8 +16,10 @@ extern pros::MotorGroup right_motors;
 extern pros::adi::DigitalOut matchloader;
 extern pros::adi::DigitalOut lift;
 extern pros::adi::DigitalOut wing;
+extern pros::adi::DigitalOut hood;
 
-extern pros::Optical colour_sensor;
+extern pros::Optical park_sensor;
+extern pros::Optical matchloader_sensor;
 extern pros::Imu inertial;  
 extern pros::Rotation arm_sensor;
 

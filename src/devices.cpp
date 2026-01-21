@@ -15,9 +15,11 @@
 #define MATCHLOADER 3
 #define LIFT 1
 #define WING 2
+#define HOOD 4
 
 #define INERTIAL 15
-#define COLOUR_SENSOR 4
+#define MATCHLOADER_SENSOR 13
+#define PARK_SENSOR 14
 #define ARM_SENSOR 16
 
 //sensors: colour sensor, inertial sensor, auton selector?
@@ -36,10 +38,12 @@ pros::Motor arm_motor (ARM_MOTOR, pros::MotorGear::red);
 pros::adi::DigitalOut matchloader (MATCHLOADER);
 pros::adi::DigitalOut lift (LIFT);
 pros::adi::DigitalOut wing (WING);
+pros::adi::DigitalOut hood (HOOD);
 
 //sensors
 pros::Imu inertial (INERTIAL);
-pros::Optical colour_sensor (COLOUR_SENSOR);
+pros::Optical park_sensor (PARK_SENSOR);
+pros::Optical matchloader_sensor (MATCHLOADER_SENSOR);
 pros::Rotation arm_sensor (ARM_SENSOR);
 
 

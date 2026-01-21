@@ -8,13 +8,13 @@
 #include "./subsystems/lift.h"
 #include "./subsystems/matchloader.h"
 #include "./subsystems/wing.h"
+#include "./subsystems/hood.h"
 
 //TODO: Make drivetrain stop @rpm drop
 
 void opcontrol(){
   bool check = false; //jams
   int game_time = 0;
-  bool intake_off_next = false;
   while(true){
     Arm::arm_pid();
     int throttle = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
@@ -33,25 +33,18 @@ void opcontrol(){
       }
     }
 
+    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){
+      Hood::toggle();
+    }
+
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)){
       Arm::score(50);
-      if (Intake::get_intake() == OFF  || Intake::get_intake() == REV){
-        Intake::set_intake(FWD);  
-        intake_off_next = true;
-      }
     }
 
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
       Arm::score();
-      if (Intake::get_intake() == OFF  || Intake::get_intake() == REV){
-        Intake::set_intake(FWD);
-        intake_off_next = true;
-      }
     }
-    if(intake_off_next && !Arm::pid_on()){
-      Intake::set_intake(OFF);
-      intake_off_next = false;
-    }
+
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){
       Lift::toggle();
     }
@@ -61,23 +54,6 @@ void opcontrol(){
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){
       Matchloader::toggle();
     }
-    // jams added here
-    // if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)){ // if up is pressed
-    //   check = !check;
-    // }
-
-    // if (check){
-    //   if(abs(left_motors.get_actual_velocity()) < 25){
-    //     master.rumble("..."); // short rumble to indicate stop command received
-    //     left_motors.move_velocity(0);
-    //   }
-    //   if(abs(right_motors.get_actual_velocity()) < 25){
-    //     master.rumble("..."); // short rumble to indicate stop command received
-    //     right_motors.move_velocity(0);
-    //   }
-    // }
-    // end of jams
-    //game
     if(pros::competition::is_connected() && !pros::competition::is_autonomous()){
       game_time++;
     } 
