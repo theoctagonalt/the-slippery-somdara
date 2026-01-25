@@ -21,6 +21,7 @@
 #define MATCHLOADER_SENSOR 13
 #define PARK_SENSOR 14
 #define ARM_SENSOR 16
+#define AI_SENSOR 4
 
 //sensors: colour sensor, inertial sensor, auton selector?
 
@@ -45,6 +46,7 @@ pros::Imu inertial (INERTIAL);
 pros::Optical park_sensor (PARK_SENSOR);
 pros::Optical matchloader_sensor (MATCHLOADER_SENSOR);
 pros::Rotation arm_sensor (ARM_SENSOR);
+pros::Vision ai_sensor (AI_SENSOR);
 
 
 //lemlib objects

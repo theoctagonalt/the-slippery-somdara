@@ -18,13 +18,17 @@ namespace Arm{
   bool pid_enabled = false;
   int max_velocity = 200;
   bool scoring = false;
+  bool hood;
 
-  void score(int vel){
+  void score(int vel, bool hood){
     set_state(6, vel);
+    hood = hood;
     scoring = true;
     Intake::set_intake(FWD);
     intake_rev_next = true;
-    Hood::set(EXTENDED);
+    if(hood){
+      Hood::set(EXTENDED);
+    }
   }
 
 
@@ -66,7 +70,9 @@ namespace Arm{
           scoring = false;
           arm_motor.brake();
           arm_motor.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-          Hood::set(RETRACTED);
+          if(hood){
+            Hood::set(RETRACTED);
+          }
         }
       }
     }

@@ -41,6 +41,13 @@ void opcontrol(){
       Arm::score(50);
     }
 
+    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)){
+      Arm::score(30);
+    }
+    if(master.get_digital_new_release(pros::E_CONTROLLER_DIGITAL_X)){
+      Arm::set_state(0);
+    }
+
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
       Arm::score();
     }
