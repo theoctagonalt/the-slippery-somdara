@@ -22,8 +22,10 @@
 //routes
 #define LEFT_SIDE 0
 #define RIGHT_SIDE 1
-#define SOLO_AWP 2
-#define SKILLS 3
+#define LEFT_SIDE_MIDDLE 2
+#define RIGHT_SIDE_MIDDLE 3
+#define SOLO_AWP 4
+#define SKILLS 5
 
 //arm states (CHANGE DEGREES)
 #define ARM_0 135

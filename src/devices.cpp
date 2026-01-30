@@ -89,9 +89,9 @@ lemlib::ControllerSettings angular_controller(2.2, //kP
 //                                              500, 
 //                                              0 //TODO: TUNE SLEW
 //                                              );
-lemlib::ControllerSettings lateral_controller(6,
+lemlib::ControllerSettings lateral_controller(4.5,
                                              .5, 
-                                             5.5, 
+                                             5.75, 
                                              5, 
                                              1, 
                                              100, 

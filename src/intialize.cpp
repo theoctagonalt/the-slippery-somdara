@@ -8,9 +8,6 @@ int colour = RED;
 
 void initialize(){
 	pros::lcd::initialize();
-  ai_sensor.reset();
-  ai_sensor.enable_detection_types(pros::AivisionModeType::colors);
-  ai_sensor.set_color(goal_colour);
   setvbuf(stdout, NULL, _IONBF, 0);
   printf("\n");
   chassis.calibrate(true);
@@ -29,8 +26,12 @@ void on_auton_route_cycle(){
     route_name = "Left Side";
   }else if(routine == RIGHT_SIDE){
     route_name = "Right Side";
+  }else if(routine == LEFT_SIDE_MIDDLE){
+    route_name = "left side middle";
+  }else if(routine == RIGHT_SIDE_MIDDLE){
+    route_name = "RIGHT side middle";
   }else if(routine == SOLO_AWP){
-    route_name = "Solo AWP";
+    route_name = "solo awp";
   }else if(routine == SKILLS){
     route_name = "Skills";
   }

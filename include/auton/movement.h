@@ -1,14 +1,5 @@
-#include "main.h"
-#include "globals.h"
-#include "devices.h"
-#include "initialize.h"
-#include "lemlib/api.hpp"
-#include "./subsystems/intake.h"
-#include "./subsystems/arm.h"
-#include "./subsystems/lift.h"
-#include "./subsystems/matchloader.h"
-#include "./subsystems/wing.h"
-#include "./subsystems/hood.h"
+#ifndef MOVEMENT__H__
+#define MOVEMENT__H__
 
 namespace Autonomous{
   void moveRelative(int dist, int timeout, lemlib::MoveToPointParams params);
@@ -17,3 +8,4 @@ namespace Autonomous{
   void moveToGoal(bool longGoal);
 }
 
+#endif

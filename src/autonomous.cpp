@@ -10,16 +10,20 @@
 #include "./subsystems/matchloader.h"
 #include "./subsystems/wing.h"
 #include "./auton/movement.h"
+#include "./auton/left_side.h"
 
 void screen() {
 	
 	// loop forever
 	while (true) {
-		// get current position of bot and display on screen every 50ms; task 1
-    lemlib::Pose pose = chassis.getPose();
-    pros::lcd::print(1, "X: %f, Y: %f, Theta: %f\n", pose.x, pose.y, pose.theta);
-    pros::delay(50);
-	}
+		// if(chassis.isInMotion()){
+			// get current position of bot and display on screen every 50ms; task 1
+			lemlib::Pose pose = chassis.getPose();
+			printf("X: %f, Y: %f, Theta: %f\n", pose.x, pose.y, pose.theta);
+			pros::lcd::print(1, "X: %f, Y: %f, Theta: %f\n", pose.x, pose.y, pose.theta);
+			pros::delay(100);
+		}
+	// }
 }
 void update_subsystems() {
 	while(pros::competition::is_autonomous()){
@@ -31,11 +35,15 @@ void update_subsystems() {
 
 void autonomous() {
   ai_sensor.reset();
+	int route = get_routine();
   ai_sensor.enable_detection_types(pros::AivisionModeType::colors);
   ai_sensor.set_color(goal_colour);
 	// start tasks; task 3
 	pros::Task screen_task(screen);
 	pros::Task subsystems_task(update_subsystems);
-	chassis.setPose(0, 0, 0);
-	Autonomous::moveToGoal(true);
+	// Autonomous::moveToGoal(true);
+
+	if(route == LEFT_SIDE){
+		left_side();
+	}
 }
