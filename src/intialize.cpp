@@ -8,7 +8,11 @@ int colour = RED;
 
 void initialize(){
 	pros::lcd::initialize();
-  pros::Rotation rotation_sensor(rotation_sensor);
+  ai_sensor.reset();
+  ai_sensor.enable_detection_types(pros::AivisionModeType::colors);
+  ai_sensor.set_color(goal_colour);
+  setvbuf(stdout, NULL, _IONBF, 0);
+  printf("\n");
   chassis.calibrate(true);
 }
 void on_auton_route_cycle(){

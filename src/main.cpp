@@ -13,8 +13,10 @@
 //TODO: Make drivetrain stop @rpm drop
 
 void opcontrol(){
+  // printf("\n");
   bool check = false; //jams
   int game_time = 0;
+
   while(true){
     Arm::arm_pid();
     int throttle = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);

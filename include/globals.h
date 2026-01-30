@@ -25,8 +25,6 @@
 #define SOLO_AWP 2
 #define SKILLS 3
 
-
-
 //arm states (CHANGE DEGREES)
 #define ARM_0 135
 #define ARM_1 1
@@ -36,5 +34,7 @@
 #define ARM_5 5
 #define ARM_6 20
 
+#define AISENSOR_THROTTLE_GAIN -1
+#define AISENSOR_ROTATIONAL_GAIN 1
 
 #endif

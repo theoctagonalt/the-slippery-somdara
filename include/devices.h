@@ -21,7 +21,9 @@ extern pros::adi::DigitalOut hood;
 extern pros::Optical park_sensor;
 extern pros::Optical matchloader_sensor;
 extern pros::Imu inertial;  
+extern pros::AIVision ai_sensor;
 extern pros::Rotation arm_sensor;
+extern pros::AIVision::Color goal_colour;
 
 extern lemlib::Chassis chassis;
 extern lemlib::ControllerSettings arm_controller;
