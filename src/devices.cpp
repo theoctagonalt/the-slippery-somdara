@@ -16,6 +16,7 @@
 #define LIFT 1
 #define WING 2
 #define HOOD 4
+#define DOUBLEPARK 5
 
 #define INERTIAL 15
 #define MATCHLOADER_SENSOR 13
@@ -41,6 +42,7 @@ pros::adi::DigitalOut matchloader (MATCHLOADER);
 pros::adi::DigitalOut lift (LIFT);
 pros::adi::DigitalOut wing (WING);
 pros::adi::DigitalOut hood (HOOD);
+pros::adi::DigitalOut double_park(DOUBLEPARK);
 
 //sensors
 pros::Imu inertial (INERTIAL);

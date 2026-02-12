@@ -64,11 +64,31 @@ namespace Autonomous{
       printf("%i,  %i, %d, %i\n", error, throttle, rotation, largestArea);
       printf("%i, %i, %i, %i\n", objectX, objectY, objectW, objectH);
       printf("=====\n");
-      chassis.arcade(-50, rotation);
+      chassis.arcade(-75, rotation);
       // chassis.arcade(-throttle, rotation);
       pros::delay(100);
     }
     return;
+  }
+
+  void matchloadUntil(int colour){
+    Intake::set_intake(FWD);    
+    int current_colour = -1;
+    bool cont = true;
+    while(cont){
+      if(matchloader_sensor.get_hue() < RED_HUE_MAX && matchloader_sensor.get_hue() > RED_HUE_MIN){ //if we see red
+        current_colour = RED;
+      }else if(matchloader_sensor.get_hue() < BLUE_HUE_MAX && matchloader_sensor.get_hue() > BLUE_HUE_MIN){ //if we see blue
+        current_colour = BLUE;
+      }
+      if(current_colour != colour){
+        cont = false;
+      }
+      pros::delay(100);
+    }
+    Intake::set_intake(REV);
+    pros::delay(50);
+    Intake::set_intake(OFF);
   }
 }
 

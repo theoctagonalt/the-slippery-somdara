@@ -20,8 +20,8 @@ namespace Arm{
   bool scoring = false;
   bool hood;
 
-  void score(int vel, bool hoodP){
-    set_state(6, vel);
+  void score(int vel, int state, bool hoodP){
+    set_state(state, vel);
     hood = hoodP;
     scoring = true;
     Intake::set_intake(FWD);

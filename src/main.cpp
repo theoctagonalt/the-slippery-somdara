@@ -9,6 +9,7 @@
 #include "./subsystems/matchloader.h"
 #include "./subsystems/wing.h"
 #include "./subsystems/hood.h"
+#include "./subsystems/doublepark.h"
 
 //TODO: Make drivetrain stop @rpm drop
 
@@ -59,6 +60,10 @@ void opcontrol(){
     }
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)){
       Wing::toggle();
+    }
+    if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+      Doublepark::toggle();
+      Matchloader::set(false);
     }
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){
       Matchloader::toggle();

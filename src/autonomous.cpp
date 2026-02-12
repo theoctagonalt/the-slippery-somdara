@@ -11,6 +11,10 @@
 #include "./subsystems/wing.h"
 #include "./auton/movement.h"
 #include "./auton/left_side.h"
+#include "./auton/sawp.h"
+#include "./auton/skills.h"
+
+
 
 void screen() {
 	
@@ -45,5 +49,11 @@ void autonomous() {
 
 	if(route == LEFT_SIDE){
 		left_side();
+	}else if(route == LEFT_SIDE_MIDDLE){
+		left_side_middle();
+	}else if(route == SOLO_AWP){
+		sawp();
+	}else if(route == SKILLS){
+		skills();
 	}
 }
