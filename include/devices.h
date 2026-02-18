@@ -24,6 +24,7 @@ extern pros::Optical matchloader_sensor;
 extern pros::Imu inertial;  
 extern pros::AIVision ai_sensor;
 extern pros::Rotation arm_sensor;
+extern pros::Distance distance;
 extern pros::AIVision::Color goal_colour;
 
 extern lemlib::Chassis chassis;

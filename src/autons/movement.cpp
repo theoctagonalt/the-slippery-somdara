@@ -39,17 +39,16 @@ namespace Autonomous{
 
       for(auto &object : objects){
         if(pros::AIVision::is_type(object, pros::AivisionDetectType::color)){
-          
-          int thisX = (int)object.object.color.xoffset;
+          int thisX = (int) object.object.color.xoffset;
           int thisY = (int) object.object.color.yoffset;
           int thisW = (int) object.object.color.width;
           int thisH = (int) object.object.color.height;
           int thisArea = thisW*thisH;
           if(thisArea > largestArea){
-            largestArea=thisArea;
+            largestArea = thisArea;
             objectX = (thisX + (thisW/2));
             objectY = (thisY + (thisH/2));
-            objectW= thisW;
+            objectW = thisW;
             objectH = thisH;
             // printf("%i, %i, %i, %i\n", thisX, thisY, thisW, thisH);
             // printf("%i, %i, %i, %i\n=\n", objectX, objectY, objectW, objectH);

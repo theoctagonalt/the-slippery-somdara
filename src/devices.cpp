@@ -20,10 +20,11 @@
 
 #define INERTIAL 15
 #define MATCHLOADER_SENSOR 13
-#define PARK_SENSOR 14
+#define HORIZONTAL_WHEEL 14
 #define ARM_SENSOR 16
 #define AI_SENSOR 2
-#define TRACKING_WHEEL 11
+#define VERTICAL_WHEEL 11
+#define DISTANCE 10
 
 //sensors: colour sensor, inertial sensor, auton selector?
 
@@ -46,11 +47,12 @@ pros::adi::DigitalOut double_park(DOUBLEPARK);
 
 //sensors
 pros::Imu inertial (INERTIAL);
-pros::Optical park_sensor (PARK_SENSOR);
+pros::Rotation horizontal_wheel (HORIZONTAL_WHEEL);
 pros::Optical matchloader_sensor (MATCHLOADER_SENSOR);
 pros::Rotation arm_sensor (ARM_SENSOR);
 pros::AIVision ai_sensor (AI_SENSOR);
-pros::Rotation tracking_wheel (TRACKING_WHEEL);
+pros::Rotation vertical_wheel (VERTICAL_WHEEL);
+pros::Distance distance (DISTANCE);
 pros::AIVision::Color goal_colour = {.id=1, .red=159, .green=100, .blue=38, .hue_range=40, .saturation_range=.22};
 
 
@@ -113,11 +115,12 @@ lemlib::ControllerSettings arm_controller(1,
                                           30
                                           );
 
-// lemlib::TrackingWheel left_side_imes (&left_motors, lemlib::Omniwheel::NEW_325, -5.8525, 450);
-// lemlib::TrackingWheel right_side_imes (&right_motors, lemlib::Omniwheel::NEW_325, 5.8525, 450);
-// lemlib::OdomSensors sensors (&left_side_imes, &right_side_imes, nullptr, nullptr, &inertial);
+lemlib::TrackingWheel left_side_imes (&left_motors, lemlib::Omniwheel::NEW_325, -5.8525, 450);
+lemlib::TrackingWheel right_side_imes (&right_motors, lemlib::Omniwheel::NEW_325, 5.8525, 450);
+lemlib::OdomSensors sensors (&left_side_imes, &right_side_imes, nullptr, nullptr, &inertial);
 
-lemlib::TrackingWheel odom_pod (&tracking_wheel, lemlib::Omniwheel::NEW_2, -0.75);
-lemlib::OdomSensors sensors (&odom_pod, nullptr, nullptr, nullptr, &inertial);
+// lemlib::TrackingWheel vertical_pod (&vertical_wheel, lemlib::Omniwheel::NEW_2, 0.5625, -1);
+// lemlib::TrackingWheel horizontal_pod(&horizontal_wheel, lemlib::Omniwheel::NEW_2, -3.9375);
+// lemlib::OdomSensors sensors (&vertical_pod, nullptr, nullptr, nullptr, &inertial);
 
 lemlib::Chassis chassis (drivetrain, lateral_controller, angular_controller, sensors, &throttle_curve, &turn_curve);

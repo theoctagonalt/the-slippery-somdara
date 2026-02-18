@@ -20,6 +20,7 @@ void opcontrol(){
 
   while(true){
     Arm::arm_pid();
+    Intake::update_intake();
     int throttle = master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int turn = master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
 
@@ -62,7 +63,7 @@ void opcontrol(){
       Wing::toggle();
     }
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
-      Doublepark::toggle();
+      Intake::double_park();
       Matchloader::set(false);
     }
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)){

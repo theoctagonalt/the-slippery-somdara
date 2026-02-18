@@ -26,6 +26,7 @@
 #define RIGHT_SIDE_MIDDLE 3
 #define SOLO_AWP 4
 #define SKILLS 5
+#define NO_ROUTE 6
 
 //arm states (CHANGE DEGREES)
 #define ARM_0 135
