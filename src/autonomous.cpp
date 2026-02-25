@@ -11,6 +11,7 @@
 #include "./subsystems/wing.h"
 #include "./auton/movement.h"
 #include "./auton/left_side.h"
+#include "./auton/right_side.h"
 #include "./auton/sawp.h"
 #include "./auton/skills.h"
 
@@ -34,6 +35,7 @@ void update_subsystems() {
 		Arm::arm_pid();
 		
 		pros::delay(5);
+		Autonomous::moveToGoal(true);
 	}
 }
 
@@ -55,5 +57,8 @@ void autonomous() {
 		sawp();
 	}else if(route == SKILLS){
 		skills();
+	}else if(route == NO_ROUTE){
+	}else if(route == RIGHT_SIDE){
+		right_side();
 	}
 }

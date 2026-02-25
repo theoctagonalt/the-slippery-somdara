@@ -26,9 +26,13 @@ namespace Autonomous{
   void matchload(){
 
   }
+  bool moving = false;
+  void honeToGoal(bool enable){
+    moving = enable;
+  }
 
   void moveToGoal(bool longGoal){
-    while(true){
+    if(moving){
       auto objects = ai_sensor.get_all_objects();
       int objectX = 0;
       int objectY = 0;
@@ -63,7 +67,7 @@ namespace Autonomous{
       printf("%i,  %i, %d, %i\n", error, throttle, rotation, largestArea);
       printf("%i, %i, %i, %i\n", objectX, objectY, objectW, objectH);
       printf("=====\n");
-      chassis.arcade(-75, rotation);
+      chassis.arcade(-50, rotation);
       // chassis.arcade(-throttle, rotation);
       pros::delay(100);
     }

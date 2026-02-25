@@ -3,6 +3,7 @@
 #include "devices.h"
 #include "initialize.h"
 #include "lemlib/api.hpp"
+#include "autonomous.h"
 #include "./subsystems/intake.h"
 #include "./subsystems/arm.h"
 #include "./subsystems/lift.h"
@@ -12,12 +13,11 @@
 #include "./subsystems/doublepark.h"
 
 //TODO: Make drivetrain stop @rpm drop
-
 void opcontrol(){
   // printf("\n");
   bool check = false; //jams
   int game_time = 0;
-
+  pros::Task screen_task(screen);
   while(true){
     Arm::arm_pid();
     Intake::update_intake();
@@ -53,7 +53,7 @@ void opcontrol(){
     }
 
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)){
-      Arm::score();
+      Arm::score(100);
     }
 
     if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){

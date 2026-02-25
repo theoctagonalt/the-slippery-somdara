@@ -24,7 +24,7 @@
 #define ARM_SENSOR 16
 #define AI_SENSOR 2
 #define VERTICAL_WHEEL 11
-#define DISTANCE 10
+#define DISTANCE 7
 
 //sensors: colour sensor, inertial sensor, auton selector?
 
@@ -71,34 +71,24 @@ lemlib::ExpoDriveCurve turn_curve(10, // joystick deadband out of 127
 );
 
 //rotational
-lemlib::ControllerSettings angular_controller(2.2, //kP
-                                              0.2, //kIx
+lemlib::ControllerSettings angular_controller(1.9, //kP
+                                              0, //kIx
                                               15, //kD
                                               7, //anti-windup
                                               0.1, //small error range (in)
-                                              1000, //small error timeout (ms)
+                                              500, //small error timeout (ms)
                                               0, //large error range (in)
                                               500, //large error timeout(ms)
                                               0  //maximum accel
                                               ); 
 
-//front-back OLD
-// lemlib::ControllerSettings lateral_controller(6.5,
-//                                              0, 
-//                                              5.5, 
-//                                              5, 
-//                                              1, 
-//                                              100, 
-//                                              0, 
-//                                              500, 
-//                                              0 //TODO: TUNE SLEW
-//                                              );
-lemlib::ControllerSettings lateral_controller(4.5,
-                                             .5, 
+
+lemlib::ControllerSettings lateral_controller(4.6,
+                                             0.3, 
                                              5.75, 
-                                             5, 
-                                             1, 
-                                             100, 
+                                             2, 
+                                             .5, 
+                                             500, 
                                              0, 
                                              500, 
                                              0 //TODO: TUNE SLEW
@@ -115,12 +105,12 @@ lemlib::ControllerSettings arm_controller(1,
                                           30
                                           );
 
-lemlib::TrackingWheel left_side_imes (&left_motors, lemlib::Omniwheel::NEW_325, -5.8525, 450);
-lemlib::TrackingWheel right_side_imes (&right_motors, lemlib::Omniwheel::NEW_325, 5.8525, 450);
-lemlib::OdomSensors sensors (&left_side_imes, &right_side_imes, nullptr, nullptr, &inertial);
+// lemlib::TrackingWheel left_side_imes (&left_motors, lemlib::Omniwheel::NEW_325, -5.8525, 450);
+// lemlib::TrackingWheel right_side_imes (&right_motors, lemlib::Omniwheel::NEW_325, 5.8525, 450);
+// lemlib::OdomSensors sensors (&left_side_imes, &right_side_imes, nullptr, nullptr, &inertial);
 
-// lemlib::TrackingWheel vertical_pod (&vertical_wheel, lemlib::Omniwheel::NEW_2, 0.5625, -1);
-// lemlib::TrackingWheel horizontal_pod(&horizontal_wheel, lemlib::Omniwheel::NEW_2, -3.9375);
-// lemlib::OdomSensors sensors (&vertical_pod, nullptr, nullptr, nullptr, &inertial);
+lemlib::TrackingWheel vertical_pod (&vertical_wheel, lemlib::Omniwheel::NEW_2, 0.5625, -1);
+lemlib::TrackingWheel horizontal_pod(&horizontal_wheel, lemlib::Omniwheel::NEW_2, -3.5);
+lemlib::OdomSensors sensors (&vertical_pod, nullptr, nullptr, nullptr, &inertial);
 
 lemlib::Chassis chassis (drivetrain, lateral_controller, angular_controller, sensors, &throttle_curve, &turn_curve);

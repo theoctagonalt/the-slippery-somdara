@@ -3,7 +3,7 @@
 #include "devices.h"
 #include "initialize.h"
 
-int routine = NO_ROUTE;
+int routine = SKILLS;
 int colour = RED;
 
 void initialize(){
@@ -30,6 +30,8 @@ void on_auton_route_cycle(){
     route_name = "left side middle";
   }else if(routine == RIGHT_SIDE_MIDDLE){
     route_name = "RIGHT side middle";
+  }else if(routine == RIGHT_SIDE){
+    route_name = "right side";
   }else if(routine == SOLO_AWP){
     route_name = "solo awp";
   }else if(routine == SKILLS){

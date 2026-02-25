@@ -19,43 +19,46 @@ void sawp(){
   Matchloader::toggle();
   Lift::toggle();
   Intake::set_intake(FWD);
+  chassis.waitUntilDone();
   chassis.moveToPoint(38, -15, 1000);
   chassis.waitUntilDone();
-  chassis.moveToPoint(38, -100, 500, {.maxSpeed=20});
+  chassis.moveToPoint(38, -100, 750, {.maxSpeed=50});
+  
   Autonomous::matchload();
   chassis.waitUntilDone();
   chassis.moveToPoint(38, 30, 1000, {.forwards=false, .maxSpeed=75});
   Matchloader::toggle();
   chassis.waitUntilDone();
   pros::delay(100);
-  Arm::score(90);
+  Arm::score(60);
   pros::delay(500);
   chassis.moveToPoint(38, 10, 1000);
   chassis.waitUntilDone();
   chassis.moveToPoint(10, 25, 1000);
   chassis.waitUntilDone();
   chassis.moveToPoint(-35, 25, 1500);
-  chassis.waitUntil(25);
+  chassis.waitUntil(32);
   Matchloader::toggle();
   Lift::toggle();
   chassis.waitUntilDone();
   chassis.moveToPoint(-25, 35, 1000, {.forwards=false});
   chassis.waitUntilDone();
-  Arm::score(20, 4);
-  pros::delay(1200);
+  Arm::score(30, 4);
+  pros::delay(750);
+  Lift::toggle();
+  pros::delay(100);
   chassis.moveToPoint(-60, 0, 1000);
   chassis.waitUntilDone();
-    chassis.moveToPoint(-60, -15, 1000);
+  chassis.moveToPoint(-60, -15, 750);
   chassis.waitUntilDone();
-  chassis.moveToPoint(-60, -100, 750, {.maxSpeed=40});
+  chassis.moveToPoint(-60, -100, 1000, {.maxSpeed=50});
+  
   Autonomous::matchload();
   chassis.waitUntilDone();
-  Lift::toggle();
   chassis.moveToPoint(-60, 30, 1000, {.forwards=false, .maxSpeed=75});
-  Matchloader::toggle();
   chassis.waitUntilDone();
   pros::delay(100);
-  Arm::score();
+  Arm::score(60);
   pros::delay(500);
 
 }

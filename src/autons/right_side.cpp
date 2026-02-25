@@ -10,23 +10,23 @@
 #include "./subsystems/wing.h"
 #include "./subsystems/hood.h"
 #include "./auton/movement.h"
-bool middle = false;
-void left_side(){
+bool middle_right = false;
+void right_side(){
   chassis.setPose(0, 0, 0);
   Intake::toggle();
   Lift::toggle();
-  chassis.moveToPoint(-8, 30, 1000);
+  chassis.moveToPoint(8, 30, 1000);
   chassis.waitUntil(24);
-  Matchloader::toggle();
+  // Matchloader::toggle();
   chassis.waitUntilDone();
-  chassis.moveToPoint(-31, 47, 1000);
+  chassis.moveToPoint(31, 47, 1000);
   pros::delay(250);
-  Matchloader::toggle();
+  // Matchloader::toggle();
   chassis.waitUntilDone();
   pros::delay(250);
-  chassis.moveToPoint(-24, 10, 1000, {.forwards=false});
+  chassis.moveToPoint(24, 10, 1000, {.forwards=false});
   chassis.waitUntilDone();
-  chassis.moveToPoint(-37, 20, 1000, {.forwards=false, .maxSpeed=100});
+  chassis.moveToPoint(37, 20, 1000, {.forwards=false, .maxSpeed=100});
   chassis.waitUntilDone();
   chassis.turnToHeading(180, 500);
   chassis.waitUntilDone();
@@ -35,10 +35,10 @@ void left_side(){
   pros::delay(50);
   Arm::score(50);
   pros::delay(500);
-  if(!middle){
-    Autonomous::moveRelative(10, 500, {});
+  if(!middle_right){
+    Autonomous::moveRelative(5, 500, {});
     chassis.waitUntilDone();
-    chassis.moveToPoint(-22, 10, 1000, {.maxSpeed=50});
+    chassis.moveToPoint(50, 15, 1000, {.maxSpeed=75});
     chassis.waitUntilDone();
     chassis.turnToHeading(180, 500);
     chassis.waitUntilDone();
@@ -47,9 +47,11 @@ void left_side(){
 
 
 }
-void left_side_middle(){
-  middle = true;
-  left_side();
+
+//TODO: TO CHAGNE TO RIGHT SIDE
+void right_side_middle(){
+  middle_right = true;
+  right_side();
   Matchloader::toggle();
   Arm::set_state(0);
   Intake::set_intake(FWD);
@@ -63,10 +65,10 @@ void left_side_middle(){
   chassis.waitUntilDone();
   chassis.turnToHeading(225, 500);
   chassis.waitUntilDone();
-  chassis.moveToPoint(-2, 45, 2500, {.forwards=false, .maxSpeed=100});
+  chassis.moveToPoint(-2, 45, 1500, {.forwards=false});
   chassis.waitUntilDone();
   pros::delay(100);
-  Arm::score(30, 6, false);
+  Arm::score(50, 6, false);
   Hood::toggle();
   pros::delay(1000);
   Lift::toggle();

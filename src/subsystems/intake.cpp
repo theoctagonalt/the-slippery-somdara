@@ -16,6 +16,7 @@ namespace Intake{
   }
   void set_intake(int state){
     Doublepark::set(RETRACTED);
+    intake_motor.set_brake_mode(pros::motor_brake_mode_e_t::E_MOTOR_BRAKE_COAST);
     if(state == FWD){
       intake_state = FWD;
       intake_motor.move_velocity(600);
@@ -42,7 +43,7 @@ namespace Intake{
         intake_state = OFF;
         intake_motor.set_brake_mode(pros::motor_brake_mode_e::E_MOTOR_BRAKE_HOLD);
         intake_motor.brake();
-        Doublepark::toggle();
+        Doublepark::set(EXTENDED);
         parking=false;
 
       }
