@@ -70,7 +70,11 @@ void left_side_middle(){
   Hood::toggle();
   pros::delay(1000);
   Lift::toggle();
-  chassis.moveToPoint(-15, 31, 1000);
+  chassis.moveToPoint(-25, 6, 1000, {.maxSpeed=100});
   pros::delay(500);
   Hood::toggle();
+  chassis.waitUntilDone();
+  chassis.turnToHeading(180, 500);
+  chassis.waitUntilDone();
+  Autonomous::moveRelative(-33, 3000, {.forwards=false, .maxSpeed=75});
 }

@@ -19,14 +19,14 @@ void right_side(){
   chassis.waitUntil(24);
   // Matchloader::toggle();
   chassis.waitUntilDone();
-  chassis.moveToPoint(31, 47, 1000);
+  chassis.moveToPoint(32, 47, 1000);
   pros::delay(250);
   // Matchloader::toggle();
   chassis.waitUntilDone();
   pros::delay(250);
   chassis.moveToPoint(24, 10, 1000, {.forwards=false});
   chassis.waitUntilDone();
-  chassis.moveToPoint(37, 20, 1000, {.forwards=false, .maxSpeed=100});
+  chassis.moveToPoint(39, 20, 1000, {.forwards=false, .maxSpeed=100});
   chassis.waitUntilDone();
   chassis.turnToHeading(180, 500);
   chassis.waitUntilDone();
@@ -38,7 +38,7 @@ void right_side(){
   if(!middle_right){
     Autonomous::moveRelative(5, 500, {});
     chassis.waitUntilDone();
-    chassis.moveToPoint(50, 15, 1000, {.maxSpeed=75});
+    chassis.moveToPoint(52, 15, 1000, {.maxSpeed=75});
     chassis.waitUntilDone();
     chassis.turnToHeading(180, 500);
     chassis.waitUntilDone();
