@@ -32,7 +32,7 @@ void sawp(){
   pros::delay(100);
   Arm::score(60);
   pros::delay(500);
-  chassis.moveToPoint(38, 10, 1000);
+  chassis.moveToPoint(38, 10, 500);
   chassis.waitUntilDone();
   chassis.moveToPoint(10, 25, 1000);
   chassis.waitUntilDone();

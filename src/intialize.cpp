@@ -3,7 +3,7 @@
 #include "devices.h"
 #include "initialize.h"
 
-int routine = SKILLS;
+int routine = LEFT_SIDE_MIDDLE;
 int colour = RED;
 
 void initialize(){

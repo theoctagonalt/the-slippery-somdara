@@ -22,11 +22,12 @@ void left_side(){
   chassis.moveToPoint(-31, 47, 1000);
   pros::delay(250);
   Matchloader::toggle();
+  // Matchloader::toggle();
   chassis.waitUntilDone();
   pros::delay(250);
   chassis.moveToPoint(-24, 10, 1000, {.forwards=false});
   chassis.waitUntilDone();
-  chassis.moveToPoint(-37, 20, 1000, {.forwards=false, .maxSpeed=100});
+  chassis.moveToPoint(-38, 20, 1000, {.forwards=false, .maxSpeed=100});
   chassis.waitUntilDone();
   chassis.turnToHeading(180, 500);
   chassis.waitUntilDone();
@@ -50,7 +51,7 @@ void left_side(){
 void left_side_middle(){
   middle = true;
   left_side();
-  Matchloader::toggle();
+  Matchloader::set(EXTENDED);
   Arm::set_state(0);
   Intake::set_intake(FWD);
   chassis.moveToPoint(-35, -5, 1000);
@@ -63,10 +64,10 @@ void left_side_middle(){
   chassis.waitUntilDone();
   chassis.turnToHeading(225, 500);
   chassis.waitUntilDone();
-  chassis.moveToPoint(-2, 45, 2500, {.forwards=false, .maxSpeed=100});
+  chassis.moveToPoint(-2, 45, 2000, {.forwards=false, .maxSpeed=100});
   chassis.waitUntilDone();
   pros::delay(100);
-  Arm::score(30, 6, false);
+  Arm::score(100, 6, false);
   Hood::toggle();
   pros::delay(1000);
   Lift::toggle();
@@ -76,5 +77,5 @@ void left_side_middle(){
   chassis.waitUntilDone();
   chassis.turnToHeading(180, 500);
   chassis.waitUntilDone();
-  Autonomous::moveRelative(-33, 3000, {.forwards=false, .maxSpeed=75});
+  chassis.moveToPoint(-25, 43, 3000, {.forwards=false});
 }
